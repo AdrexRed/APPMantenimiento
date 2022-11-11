@@ -1,0 +1,54 @@
+
+<header th:fragment="barra-menu" class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_USER')">
+          <a class="nav-link" th:href="@{/soporte/usuario/crear}" th:text="#{text.menu.solicitar}"></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_USER')">
+          <a class="nav-link" th:href="@{/soporte/usuario/misAbiertos}" th:text="#{text.menu.abiertas}"></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_USER')">
+          <a class="nav-link" th:href="@{/soporte/usuario/misPendientesPorEvaluar}" th:text="#{text.menu.calificar}"></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+          <a class="nav-link" th:href="@{/soporte/admin/consultarTodos}" th:text="#{text.menu.todas}"></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+          <a class="nav-link"  th:href="@{/soporte/admin/consultarPendientesAsignar}" th:text="#{text.menu.pendientes}"></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+          <a class="nav-link"  th:href="@{/soporte/admin/requierenArreglo}" th:text="#{text.menu.arreglo}"></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+          <a class="nav-link"  th:href="@{/soporte/admin/consultaRangos}" th:text="#{text.menu.rangos}"></a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_TECH')">
+          <a class="nav-link"  th:href="@{/soporte/tecnico/consultarMisAsignados}" th:text="#{text.menu.asignadas}"></a>
+        </li>
+        <div sec:authorize="isAnonymous()">
+        	<a class="btn btn-primary" th:href="@{/login}" th:text="#{text.menu.ingreso}"></a>
+        </div>
+        
+        <div sec:authorize="isAuthenticated()">
+        	<span th:if="${session.usuario!=null}" th:text="'Bienvenido: ' + ${session.usuario.username}"></span>
+        	<!-- <span>Bienvenido</span>&nbsp;<span sec:authentication="name"></span>&nbsp; -->
+          <a class="btn btn-primary" th:href="@{/logout}" th:text="#{text.menu.salir}"></a>
+        </div>
+      </ul>
+      <ul class="navbar navbar-right mx4" >
+      	<li class="nav-item mx-1"><a class="btn btn-outline-success" th:href="@{/locale(lang=es_ES)}">ESPAÑOL</a> 
+      	<li class="nav-item mx-1"><a class="btn btn-outline-success" th:href="@{/locale(lang=en_EN)}">INGLES</a> 
+      </ul>
+      
+    </div>
+    </div>
+  </nav>
+</header>
